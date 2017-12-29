@@ -68,11 +68,11 @@ export class AuthRouter {
                     }
 
                     let token = jwtWebToken.sign({
-                        data: 'test'
+                        isAdmin: false
                     }, Globals.secret);
 
                     res.status(200)
-                        .send(token);
+                        .send({ token: token });
                 });
             })
             .catch(errors => {
