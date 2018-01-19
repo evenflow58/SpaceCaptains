@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SignupComponent } from './signup/signup/signup.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    MainComponent
+    MainComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
