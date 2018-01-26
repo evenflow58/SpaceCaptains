@@ -1,6 +1,5 @@
 import { CanActivateService } from './guards/can-activate.service';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './services/api/auth.service';
 import { ApiService } from './services/api/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -13,6 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent } from './signup/signup/signup.component';
+import { GoogleSignInComponent } from 'angular-google-signin';
+import { UserService } from './services/user/user.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     MainComponent,
-    SignupComponent
+    SignupComponent,
+    GoogleSignInComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     ApiService,
-    AuthService,
+    UserService,
     CanActivateService
   ],
   bootstrap: [AppComponent]

@@ -30,22 +30,10 @@ export class AuthValidator extends BaseValidator {
 
     public static validateSignup(req: Request) {
         let schema: ExpressValidator.ValidationSchema = {
-            'userName': {
+            'id': {
                 in: 'body',
                 notEmpty: {
-                    errorMessage: 'No user name supplied'
-                },
-                hasNoSpaces: {
-                    errorMessage: 'User name cannot contain spaces'
-                }
-            },
-            'password': {
-                in: 'body',
-                notEmpty: {
-                    errorMessage: 'No password supplied'
-                },
-                hasNoSpaces: {
-                    errorMessage: 'Password cannot contain spaces'
+                    errorMessage: 'No id provided'
                 }
             },
             'firstName': {

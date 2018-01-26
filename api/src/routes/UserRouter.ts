@@ -29,16 +29,12 @@ export class UserRouter {
     public getAll(req: Request, res: Response, next: NextFunction) {
         User.find((err, users) => {
             res.send(UserMapper.viewMapArray(users));
-
-            next();
         });
     }
 
     public getById(req: Request, res: Response, next: NextFunction) {
         User.findById(req.params.id, (err, user) => {
             res.send(UserMapper.viewMap(user));
-
-            next();
         });
     }
 }

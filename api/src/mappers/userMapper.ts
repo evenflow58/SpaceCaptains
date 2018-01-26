@@ -11,7 +11,8 @@ export class UserMapper extends BaseMapper {
     public static viewMap(user: IUser): UserView {
         return {
             id: parseInt(user.id),
-            userName: user.userName
+            firstName: user.firstName,
+            lastName: user.lastName
         } as UserView;
     }
 

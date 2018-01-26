@@ -47,7 +47,9 @@ class App {
                 path: [
                     '/',
                     '/api/auth/login',
-                    '/api/auth/signUp'
+                    '/api/auth/signUp',
+                    '/api/user',
+                    new RegExp('/api/user/*/', 'i')
                 ]
             }));
     }
@@ -64,7 +66,7 @@ class App {
 
         this.express.use('/api/auth', AuthRouter);
 
-        this.express.use('/api/users', UserRouter);
+        this.express.use('/api/user', UserRouter);
     }
 }
 

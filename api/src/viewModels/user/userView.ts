@@ -1,4 +1,5 @@
 export class UserView {
     id: number;
-    userName: string;
+    firstName: string;
+    lastName: string;
 }
