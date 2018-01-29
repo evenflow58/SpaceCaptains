@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser';
 import * as expressJwt from 'express-jwt';
 import * as mongoose from 'mongoose';
 import * as session from 'express-session';
+import * as cors from 'cors';
 import expressValidator = require('express-validator');
 
 import { Globals } from './constants';
@@ -19,7 +20,7 @@ class App {
         this.express = express();
         this.database();
         this.middleware();
-        this.routes();
+        //this.routes();
     }
 
     private database(): void {
@@ -52,6 +53,20 @@ class App {
                     new RegExp('/api/user/*/', 'i')
                 ]
             }));
+
+        const options: cors.CorsOptions = {
+            allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
+            credentials: true,
+            methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+            origin: 'http://localhost:4200',
+            preflightContinue: false
+        };
+
+        this.express.use(cors(options));
+
+        this.routes();
+
+        this.express.options("*", cors(options));
     }
 
     private routes(): void {

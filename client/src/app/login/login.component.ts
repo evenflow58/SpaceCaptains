@@ -42,7 +42,12 @@ export class LoginComponent implements OnInit {
     let id: string = googleUser.getId();
     let profile: gapi.auth2.BasicProfile = googleUser.getBasicProfile();
 
-    this.userService.get(id);
+    this.userService.get(id).subscribe(user => {
+      debugger;
+      if (user.id === null) {
+        // create user here.
+      }
+    });
 
     // Remove this when done
     gapi.auth2.getAuthInstance().signOut();
