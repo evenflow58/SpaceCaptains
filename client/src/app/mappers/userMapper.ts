@@ -2,10 +2,14 @@ import { User } from "../models/user";
 
 export class UserMapper {
     public static Map(json: any) {
-        return {
-            id: json.id,
-            firstName: json.firstName,
-            lastName: json.lastName
-        } as User;
+        if (json) {
+            return {
+                id: json.id,
+                name: json.name,
+                email: json.email
+            } as User;
+        }
+
+        return null;
     }
 }

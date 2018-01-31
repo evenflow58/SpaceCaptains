@@ -1,19 +1,19 @@
 import { Document, Schema, model } from 'mongoose';
+import { ObjectId } from 'bson';
 
 export interface IUser extends Document {
-    id: string;
-    userName: string;
-    password: string;
+    googleId: number,
     firstName: string;
     lastName: string;
+    picture: string;
     email: string;
 }
 
 let userSchema: Schema = new Schema({
-    userName: String,
-    password: String,
+    googleId: Number,
     firstName: String,
     lastName: String,
+    picture: String,
     email: String
 });
 

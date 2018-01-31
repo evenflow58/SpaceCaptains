@@ -12,31 +12,38 @@ export class UserRouter {
 
     init() {
         this.router.get('/', this.getAll);
-        this.router.get('/:id', this.getById);
+        // this.router.get('/:id', this.getById);
 
-        this.router.post('/', this.create)
+        // this.router.post('/', this.create)
     }
 
-    public create(req: Request, res: Response, next: NextFunction) {
-        let newUser = new User(UserMapper.postMap(req.body));
+    // public create(req: Request, res: Response, next: NextFunction) {
+    //     let newUser = new User(UserMapper.postMap(req.body));
 
-        newUser.save((err) => {
-            res.status(201)
-                .send({ id: newUser.id });
-        });
-    }
+    //     newUser.save((err) => {
+    //         res.status(201)
+    //             .send({ id: newUser.id });
+    //     });
+    // }
 
     public getAll(req: Request, res: Response, next: NextFunction) {
+        debugger;
         User.find((err, users) => {
+            debugger;
             res.send(UserMapper.viewMapArray(users));
         });
     }
 
-    public getById(req: Request, res: Response, next: NextFunction) {
-        User.findById(req.params.id, (err, user) => {
-            res.send(UserMapper.viewMap(user));
-        });
-    }
+    // public getById(req: Request, res: Response, next: NextFunction) {
+    //     User.findOne({ googleId: req.params.id }, (err, user) => {
+    //         if (user) {
+    //             res.send(UserMapper.viewMap(user));
+    //         }
+    //         else {
+    //             res.send(null);
+    //         }
+    //     });
+    // }
 }
 
 const userRoutes = new UserRouter();

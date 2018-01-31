@@ -1,5 +1,6 @@
 export class UserView {
-    id: number;
+    id: string;
     firstName: string;
     lastName: string;
+    token: string;
 }

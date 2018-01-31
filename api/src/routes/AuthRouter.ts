@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
+import { auth } from 'googleapis';
 import * as jwtWebToken from 'jsonwebtoken';
 import * as passwordHash from 'password-hash';
 
@@ -22,57 +23,41 @@ export class AuthRouter {
 
     init() {
         this.router.post('/login', this.login);
-        this.router.post('/signUp', this.signUp);
-    }
-
-    public signUp = (req: Request, res: Response, next: NextFunction) => {
-        AuthValidator.validateSignup(req)
-            .then(() => {
-                let newUser = new User(UserMapper.postMap(req.body));
-
-                this.authService.signUp(newUser)
-                    .then((user) => {
-                        res.status(201)
-                            .send({
-                                id: newUser.id
-                            });
-                    })
-                    .catch((error) => {
-                        res.status(400)
-                            .send({
-                                errors: ['An unknown error occured.']
-                            });
-
-                        return;
-                    });
-            })
-            .catch(errors => {
-                res.status(400)
-                    .send({
-                        errors: errors.mapped()
-                    });
-
-                return;
-            });
     }
 
     public login = (req: Request, res: Response, next: NextFunction) => {
         AuthValidator.validateLogin(req)
             .then(() => {
-                User.findOne({ userName: req.body.userName }, (err, user) => {
-                    if (!user || !passwordHash.verify(req.body.password, user.password)) {
-                        res.status(400)
-                            .send('Unable to login');
+                let client = new auth.OAuth2('285932991733-l0qg668r4ta1frace6bsteoo2vquh2m4.apps.googleusercontent.com', '', '');
+                client.verifyIdToken({
+                    idToken: req.body.token,
+                    audience: '285932991733-l0qg668r4ta1frace6bsteoo2vquh2m4.apps.googleusercontent.com'
+                }, (e, login) => {
+                    let payload = login.getPayload();
+                    let userId = payload.sub;
 
-                        return
-                    }
+                    User.findOne({ googleId: userId }, (err, user) => {
+                        if (user) {
+                            res
+                                .status(200)
+                                .send(UserMapper.viewMap(user, this.createToken(user)));
+                        }
+                        else {
+                            let newUser = new User({
+                                googleId: userId,
+                                firstName: payload.given_name,
+                                lastName: payload.family_name,
+                                picture: payload.picture,
+                                email: payload.email
+                            });
 
-                    let token = jwtWebToken.sign({
-                        isAdmin: false
-                    }, Globals.secret);
-
-                    res.status(200)
-                        .send({ token: token });
+                            newUser.save((err) => {
+                                res
+                                    .status(201)
+                                    .send(UserMapper.viewMap(newUser, this.createToken(newUser)));
+                            });
+                        }
+                    });
                 });
             })
             .catch(errors => {
@@ -83,6 +68,15 @@ export class AuthRouter {
 
                 return;
             });
+    }
+
+    protected createToken(user: IUser) {
+        const payload = {
+            id: user.id,
+            admin: false
+        };
+
+        return jwtWebToken.sign(payload, Globals.secret);
     }
 }
 

@@ -5,22 +5,13 @@ export class AuthValidator extends BaseValidator {
     public static validateLogin(req: Request) {
 
         let schema: ExpressValidator.ValidationSchema = {
-            'userName': {
+            'token': {
                 in: 'body',
                 notEmpty: {
-                    errorMessage: 'No user name supplied'
+                    errorMessage: 'Invalid token'
                 },
                 hasNoSpaces: {
-                    errorMessage: 'User name cannot contain spaces'
-                }
-            },
-            'password': {
-                in: 'body',
-                notEmpty: {
-                    errorMessage: 'No password supplied'
-                },
-                hasNoSpaces: {
-                    errorMessage: 'Password cannot contain spaces'
+                    errorMessage: 'Invalid token'
                 }
             }
         };

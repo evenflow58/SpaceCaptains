@@ -47,18 +47,22 @@ class App {
             .unless({
                 path: [
                     '/',
-                    '/api/auth/login',
-                    '/api/auth/signUp',
-                    '/api/user',
-                    new RegExp('/api/user/*/', 'i')
+                    '/api/auth/login'
                 ]
             }));
 
         const options: cors.CorsOptions = {
-            allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
+            allowedHeaders: [
+                "Origin",
+                "X-Requested-With",
+                "Content-Type",
+                "Accept",
+                "X-Access-Token",
+                "Authorization"
+            ],
             credentials: true,
-            methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-            origin: 'http://localhost:4200',
+            methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE,OPTIONS",
+            origin: '*',
             preflightContinue: false
         };
 

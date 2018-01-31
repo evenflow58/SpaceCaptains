@@ -1,3 +1,4 @@
+import { CookieModule } from 'ngx-cookie';
 import { CanActivateService } from './guards/can-activate.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api/api.service';
@@ -8,35 +9,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SignupComponent } from './signup/signup/signup.component';
 import { GoogleSignInComponent } from 'angular-google-signin';
 import { UserService } from './services/user/user.service';
-
-const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  {
-    path: '',
-    component: MainComponent,
-    canActivate: [
-      CanActivateService
-    ]
-  }
-];
+import { AuthService } from './services/auth/auth.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MainComponent,
-    SignupComponent,
-    GoogleSignInComponent
+    GoogleSignInComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CookieModule.forRoot(),
     HttpClientModule,
     FormsModule,
     MatFormFieldModule,
@@ -47,6 +39,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     ApiService,
+    AuthService,
     UserService,
     CanActivateService
   ],
