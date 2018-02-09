@@ -18,7 +18,6 @@ export class ApiService {
   }
 
   public get<T>(url: string): Observable<T> {
-    debugger;
     return this.http.get<T>(`${environment.apiUrl}${url}`, { headers: this.createHeaders() });
   }
 

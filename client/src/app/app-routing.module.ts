@@ -5,16 +5,19 @@ import { MainComponent } from './main/main.component';
 import { CanActivateService } from './guards/can-activate.service';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GameBoardComponent } from './components/game-board/game-board.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'gameBoard/:id', component: GameBoardComponent },
   {
     path: '',
-    component: MainComponent,
-    canActivate: [
-      CanActivateService
-    ]
+    redirectTo: 'login',
+    // canActivate: [
+    //   CanActivateService
+    // ],
+    pathMatch: 'full'
   }
 ];
 
