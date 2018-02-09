@@ -26,12 +26,10 @@ export class UserRouter {
     //     });
     // }
 
-    public getAll(req: Request, res: Response, next: NextFunction) {
-        debugger;
-        User.find((err, users) => {
-            debugger;
-            res.send(UserMapper.viewMapArray(users));
-        });
+    public async getAll(req: Request, res: Response, next: NextFunction) {
+        let users = await User.find();
+
+        res.send(UserMapper.viewMapArray(users));
     }
 
     // public getById(req: Request, res: Response, next: NextFunction) {

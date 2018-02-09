@@ -1,8 +1,7 @@
 import { Document, Schema, model } from 'mongoose';
-import { ObjectId } from 'bson';
 
 export interface IUser extends Document {
-    googleId: number,
+    googleId: number;
     firstName: string;
     lastName: string;
     picture: string;

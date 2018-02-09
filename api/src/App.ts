@@ -12,6 +12,7 @@ import { Globals } from './constants';
 
 import UserRouter from './routes/UserRouter';
 import AuthRouter from './routes/AuthRouter';
+import GamesRouter from './routes/GamesRouter';
 
 class App {
     public express: express.Application;
@@ -28,6 +29,9 @@ class App {
     }
 
     private middleware(): void {
+        // use ES6 promises.
+        (<any>mongoose).Promise = Promise;
+
         this.express.use(logger('dev'));
         this.express.use(bodyParser.json());
         this.express.use(expressValidator({
@@ -84,8 +88,8 @@ class App {
         this.express.use('/api', router);
 
         this.express.use('/api/auth', AuthRouter);
-
         this.express.use('/api/user', UserRouter);
+        this.express.use('/api/game', GamesRouter);
     }
 }
 

@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(googleUser.getAuthResponse().id_token)
       .subscribe(response => {
         this.cookieService.put('token', response.token);
-        debugger;
         this.router.navigate(['/dashboard']);
       });
   }
