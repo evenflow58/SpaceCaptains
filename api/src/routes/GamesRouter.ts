@@ -70,7 +70,10 @@ export class GamesRouter {
             res.status(201)
                 .send(createdGame);
         } catch (e) {
-            debugger;
+            res.status(400)
+                .send({
+                    errors: e.mapped()
+                });
         }
     }
 }
