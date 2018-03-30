@@ -22,14 +22,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     this.gamesService.getAll().subscribe(games => {
       this.games = games;
     });
-  }
-
-  ngAfterViewInit() {
-    debugger;
   }
 
   openNewGameWindow() {

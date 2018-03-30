@@ -35,4 +35,7 @@ export class GamePieceComponent implements OnInit {
     return this.pieces.filter(piece => piece.x === x && piece.y === y).length > 0;
   }
 
+  public isSun(x: number, y: number) {
+    return x == 2 && y == 2;
+  }
 }

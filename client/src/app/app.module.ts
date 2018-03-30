@@ -3,7 +3,7 @@ import { CanActivateService } from './guards/can-activate.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api/api.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatListModule, MatDialogModule, MatToolbarModule, MatGridListModule } from '@angular/material';
@@ -38,6 +38,7 @@ import { GamePieceComponent } from './components/game-piece/game-piece/game-piec
   imports: [
     BrowserModule,
     //BrowserAnimationsModule,
+    NoopAnimationsModule,
     CookieModule.forRoot(),
     HttpClientModule,
     FormsModule,

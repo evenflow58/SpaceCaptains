@@ -38,9 +38,14 @@ export class GamesRouter {
             let boardPieces: Array<IBoardPiece> = new Array<IBoardPiece>();
 
             for (let pieceCounter = 0; pieceCounter < 3; pieceCounter++) {
-                for (let spotCounter = 0; spotCounter < Math.floor(Math.random() * (maxPlanets - minPlanets + 1) + minPlanets); spotCounter++) {
+                let spotCounter = 0;
+                do {
                     let x: number = Math.floor(Math.random() * 3);
                     let y: number = Math.floor(Math.random() * 3);
+
+                    if (x === 2 && y === 2) {
+                        continue;
+                    }
 
                     if (!boardPieces.find(b => b.x === x && b.y === y)) {
                         boardPieces.push({
@@ -49,7 +54,9 @@ export class GamesRouter {
                             y: y
                         } as IBoardPiece);
                     }
-                }
+
+                    spotCounter++;
+                } while (spotCounter < Math.floor(Math.random() * (maxPlanets - minPlanets + 1) + minPlanets));
             }
 
             let boardPieceSaves = new Array<Promise<any>>();
