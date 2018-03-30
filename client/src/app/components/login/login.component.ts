@@ -1,6 +1,6 @@
 import { CookieService } from 'ngx-cookie';
 import { GoogleSignInSuccess } from 'angular-google-signin';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { environment } from '../../../environments/environment.prod';
 import { User } from '../../models/user';
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private zone: NgZone
   ) {
 
   }
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(googleUser.getAuthResponse().id_token)
       .subscribe(response => {
         this.cookieService.put('token', response.token);
-        this.router.navigate(['/dashboard']);
+        // https://stackoverflow.com/questions/35936535/angular-2-ngoninit-not-called
+        this.zone.run(() => this.router.navigate(['/dashboard']));
       });
   }
 }

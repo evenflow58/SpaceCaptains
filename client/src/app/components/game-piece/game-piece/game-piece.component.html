@@ -1,0 +1,8 @@
+<div *ngFor="let x of counter(3)">
+  <div *ngFor="let y of counter(3)" class="piece">
+    <span *ngIf="hasPiece(x, y); else elseBlock">
+      <img [src]="imagePath">
+    </span>
+    <ng-template #elseBlock style="display:inline-block">Not Found</ng-template>
+  </div>
+</div>

@@ -1,1 +1,3 @@
 <mat-toolbar>{{game.name}}</mat-toolbar>
+
+<game-piece *ngFor="let pieces of game.pieces" [pieces]="pieces" style="display:inline-block"></game-piece>
