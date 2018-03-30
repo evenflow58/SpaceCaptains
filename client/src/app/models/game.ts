@@ -1,4 +1,7 @@
+import { BoardPiece } from './boardPiece';
+
 export class Game {
-    _id: string;
+    id: string;
     name: string;
+    pieces: Array<Array<BoardPiece>>;
 }

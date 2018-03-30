@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { GameService } from '../../services/game/game.service';
 
 @Component({
-  selector: 'app-new-game-window',
+  selector: 'new-game-window',
   templateUrl: './new-game-window.component.html',
   styleUrls: ['./new-game-window.component.css']
 })

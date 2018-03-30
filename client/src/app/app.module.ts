@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatListModule, MatDialogModule, MatToolbarModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatListModule, MatDialogModule, MatToolbarModule, MatGridListModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -19,6 +19,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GameService } from './services/game/game.service';
 import { NewGameWindowComponent } from './components/new-game-window/new-game-window.component';
 import { GameBoardComponent } from './components/game-board/game-board.component';
+import { GamePieceComponent } from './components/game-piece/game-piece/game-piece.component';
 
 @NgModule({
   declarations: [
@@ -28,14 +29,15 @@ import { GameBoardComponent } from './components/game-board/game-board.component
     GoogleSignInComponent,
     DashboardComponent,
     NewGameWindowComponent,
-    GameBoardComponent
+    GameBoardComponent,
+    GamePieceComponent
   ],
   entryComponents: [
     NewGameWindowComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    //BrowserAnimationsModule,
     CookieModule.forRoot(),
     HttpClientModule,
     FormsModule,
@@ -46,6 +48,7 @@ import { GameBoardComponent } from './components/game-board/game-board.component
     MatListModule,
     MatDialogModule,
     MatToolbarModule,
+    MatGridListModule,
     AppRoutingModule
   ],
   providers: [

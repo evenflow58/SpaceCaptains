@@ -18,13 +18,14 @@ export class GamesRouter {
     }
 
     public async getAll(req: Request, res: Response, next: NextFunction) {
-        let games = await Game.find();
+        let games = await Game.find()
 
         res.send(GameMapper.viewMapArray(games));
     }
 
     public async get(req: Request, res: Response, next: NextFunction) {
-        let game = await Game.findById(req.params.id);
+        let game = await await Game.findById(req.params.id)
+            .populate('boardPieces');
 
         res.send(GameMapper.viewMap(game));
     }
@@ -34,11 +35,6 @@ export class GamesRouter {
             maxPlanets: number = 5;
 
         try {
-            let newGame = await Game.create({
-                name: req.body.name,
-                ownerId: req.user.id
-            });
-
             let boardPieces: Array<IBoardPiece> = new Array<IBoardPiece>();
 
             for (let pieceCounter = 0; pieceCounter < 3; pieceCounter++) {
@@ -48,7 +44,6 @@ export class GamesRouter {
 
                     if (!boardPieces.find(b => b.x === x && b.y === y)) {
                         boardPieces.push({
-                            gameId: newGame._id,
                             piece: pieceCounter,
                             x: x,
                             y: y
@@ -57,15 +52,22 @@ export class GamesRouter {
                 }
             }
 
-            let boardPiceSaves = new Array<Promise<any>>();
+            let boardPieceSaves = new Array<Promise<any>>();
 
             boardPieces.forEach(boardPiece => {
-                boardPiceSaves.push(BoardPiece.create(boardPiece));
+                boardPieceSaves.push(BoardPiece.create(boardPiece));
             });
 
-            await Promise.all(boardPiceSaves);
+            let savedPieces = await Promise.all(boardPieceSaves);
 
-            let createdGame = GameMapper.viewMap(newGame, boardPieces);
+            let newGame = await Game.create({
+                name: req.body.name,
+                ownerId: req.user.id,
+                boardPieces: savedPieces
+            });
+
+            let createdGame = await await Game.findById(req.params.id)
+                .populate('boardPieces');
 
             res.status(201)
                 .send(createdGame);

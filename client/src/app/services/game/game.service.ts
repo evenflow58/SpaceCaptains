@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs/Observable';
 import { Game } from '../../models/game';
+import { GameMapper } from '../../mappers/gameMapper';
 
 @Injectable()
 export class GameService {
@@ -17,7 +18,8 @@ export class GameService {
   }
 
   public get(id: string): Observable<Game> {
-    return this.apiService.get<Game>(`game/${id}`);
+    return this.apiService.get<Game>(`game/${id}`)
+      .map(game => GameMapper.Map(game));
   }
 
   public create(game: Game): Observable<Game> {
